@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>삼성SDI 상생협력 소식지 | M@GAZINE 26년 두번째</title>
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+:root {
+  --navy: #1428A0;
+  --cyan: #00B4D8;
+  --cyan-light: #90E0EF;
+  --sky: #CAF0F8;
+  --white: #ffffff;
+  --gray-bg: #f4f8fb;
+  --gray-line: #e2eef4;
+  --text-dark: #0d1b2a;
+  --text-mid: #3a5068;
+  --text-soft: #6b8fa8;
+  --accent: #0077B6;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Pretendard', sans-serif;
+  background: var(--white);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* ── GLOBAL NAV ── */
+.global-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  background: rgba(13, 27, 42, 0.96);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(144,224,239,0.15);
+}
+.gnav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  height: 54px;
+  padding: 0 24px;
+  gap: 0;
+}
+.gnav-home {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  padding-right: 20px;
+  margin-right: 20px;
+  border-right: 1px solid rgba(255,255,255,0.1);
+  flex-shrink: 0;
+}
+.gnav-home-badge {
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--white);
+}
+.gnav-home-badge span { color: var(--cyan); }
+.gnav-home-label {
+  font-size: 10px;
+  color: rgba(144,224,239,0.6);
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+/* 소식지 내부 섹션 링크 */
+.gnav-sections {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.gnav-sections::-webkit-scrollbar { display: none; }
+.gnav-sections a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.gnav-sections a:hover,
+.gnav-sections a.active {
+  background: rgba(0,180,216,0.2);
+  color: var(--cyan-light);
+}
+.gnav-num {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--cyan);
+  opacity: 0.7;
+}
+
+/* prev/next 발행호 이동 */
+.gnav-issue-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  flex-shrink: 0;
+  padding-left: 16px;
+}
+.issue-nav-btn {
+  color: rgba(144,224,239,0.6);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(144,224,239,0.15);
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.issue-nav-btn:hover {
+  border-color: rgba(144,224,239,0.4);
+  color: var(--cyan-light);
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  background: linear-gradient(145deg, #0d1b2a 0%, #1428A0 45%, #0077B6 75%, #00B4D8 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 24px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(0,180,216,0.06);
+  pointer-events: none;
+}
+.bubbles { position: absolute; inset: 0; pointer-events: none; }
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(144,224,239,0.06);
+  border: 1px solid rgba(144,224,239,0.12);
+  animation: floatUp linear infinite;
+}
+@keyframes floatUp {
+  0%   { transform: translateY(110vh) scale(0); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(-80px) scale(1); opacity: 0; }
+}
+
+.hero-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.22em;
+  color: var(--cyan-light); text-transform: uppercase;
+  margin-bottom: 18px; position: relative;
+}
+.hero-vol {
+  font-size: 13px; color: rgba(202,240,248,0.5);
+  margin-bottom: 10px; position: relative; letter-spacing: 0.1em;
+}
+.hero-title {
+  font-size: clamp(52px, 10vw, 96px);
+  font-weight: 900; color: var(--white);
+  line-height: 0.95; position: relative; margin-bottom: 6px;
+  letter-spacing: -0.03em;
+}
+.hero-title .at { color: var(--cyan); }
+.hero-sub {
+  font-size: clamp(13px, 2vw, 16px);
+  font-weight: 300; color: rgba(202,240,248,0.7);
+  letter-spacing: 0.12em; position: relative; margin-bottom: 48px;
+}
+
+/* TOC 카드 */
+.hero-toc {
+  display: flex; flex-direction: column; gap: 10px;
+  position: relative; width: 100%; max-width: 440px;
+}
+.toc-item {
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(144,224,239,0.18);
+  border-radius: 12px; padding: 14px 20px;
+  text-decoration: none;
+  transition: all 0.22s;
+  backdrop-filter: blur(4px);
+}
+.toc-item:hover {
+  background: rgba(0,180,216,0.18);
+  border-color: rgba(144,224,239,0.45);
+  transform: translateX(5px);
+}
+.toc-num {
+  font-size: 11px; font-weight: 700;
+  color: var(--cyan); letter-spacing: 0.08em; min-width: 26px;
+}
+.toc-text { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.88); text-align: left; }
+
+/* ── SECTION 공통 ── */
+section { padding: 80px 24px; }
+.section-inner { max-width: 900px; margin: 0 auto; }
+
+.section-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  color: var(--cyan); text-transform: uppercase; margin-bottom: 10px;
+}
+.section-tag::before {
+  content: ''; display: block;
+  width: 22px; height: 2px; background: var(--cyan);
+}
+.section-title {
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 900; color: var(--navy); line-height: 1.2; margin-bottom: 6px;
+}
+.section-date {
+  font-size: 13px; color: var(--text-soft);
+  font-weight: 400; margin-bottom: 36px; font-style: italic;
+}
+
+/* ── SECTION 1 세미나 ── */
+#s01 { background: var(--gray-bg); }
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+.full-col { grid-column: 1 / -1; }
+
+/* 이미지 박스 */
+.img-box {
+  border-radius: 14px; overflow: hidden;
+  background: linear-gradient(135deg, #0d3b6e, #0077b6);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.img-box.main-img  { aspect-ratio: 4/3; }
+.img-box.sub-img   { aspect-ratio: 4/3; }
+.img-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.img-placeholder {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 10px; padding: 20px;
+  color: rgba(255,255,255,0.35); width: 100%; height: 100%;
+}
+.img-placeholder svg { width: 40px; height: 40px; }
+.img-placeholder span { font-size: 11px; text-align: center; }
+
+.sub-imgs-3 {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 10px;
+}
+
+/* 정보 블록 */
+.info-stack { display: flex; flex-direction: column; gap: 14px; }
+.info-block {
+  background: var(--white); border-radius: 12px;
+  padding: 18px 22px; border-left: 3px solid var(--cyan);
+}
+.info-block-title {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+  color: var(--cyan); margin-bottom: 7px; text-transform: uppercase;
+}
+.info-block-body {
+  font-size: 13px; line-height: 1.75; color: var(--text-mid);
+}
+.info-block-body strong { color: var(--text-dark); font-weight: 700; }
+
+/* 하이라이트 배너 */
+.highlight-banner {
+  background: linear-gradient(135deg, var(--navy), var(--accent));
+  border-radius: 14px; padding: 28px 32px;
+  color: var(--white); text-align: center;
+}
+.highlight-banner p {
+  font-size: 15px; font-weight: 500; line-height: 1.8; opacity: 0.95;
+}
+.highlight-banner em { font-style: normal; color: var(--cyan-light); font-weight: 700; }
+
+/* ── SECTION 2 구매상담회 ── */
+#s02 { background: var(--white); }
+
+.stat-row {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 12px;
+  margin: 20px 0;
+}
+.stat-card {
+  background: var(--sky); border-radius: 12px;
+  padding: 18px 14px; text-align: center;
+}
+.stat-num {
+  font-size: 26px; font-weight: 900;
+  color: var(--navy); line-height: 1;
+}
+.stat-unit { font-size: 13px; font-weight: 700; color: var(--accent); }
+.stat-label { font-size: 11px; color: var(--text-soft); margin-top: 4px; }
+
+.tall-img { aspect-ratio: 3/4; }
+
+/* ── SECTION 3 혁신활동 ── */
+#s03 { background: var(--gray-bg); }
+
+.inno-summary {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 12px; margin-bottom: 36px;
+}
+.inno-card {
+  background: var(--white); border-radius: 14px;
+  padding: 22px 14px; text-align: center;
+  border-top: 3px solid var(--cyan);
+  transition: transform 0.2s;
+}
+.inno-card:hover { transform: translateY(-4px); }
+.inno-card-icon { font-size: 26px; margin-bottom: 10px; }
+.inno-card-num  { font-size: 30px; font-weight: 900; color: var(--navy); line-height: 1; }
+.inno-card-label { font-size: 11px; color: var(--text-soft); margin-top: 5px; }
+
+/* 탭 */
+.tab-nav {
+  display: flex; gap: 6px; margin-bottom: 20px;
+  border-bottom: 2px solid var(--gray-line);
+}
+.tab-btn {
+  padding: 9px 18px; font-size: 13px; font-weight: 700;
+  color: var(--text-soft); background: none; border: none;
+  border-bottom: 3px solid transparent; margin-bottom: -2px;
+  cursor: pointer; transition: all 0.2s;
+  font-family: 'Pretendard', sans-serif;
+}
+.tab-btn.active { color: var(--navy); border-bottom-color: var(--navy); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* 테이블 */
+.inno-table {
+  width: 100%; border-collapse: collapse;
+  background: var(--white); border-radius: 12px;
+  overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+.inno-table thead tr { background: var(--navy); color: var(--white); }
+.inno-table th {
+  padding: 13px 16px; font-size: 12px; font-weight: 700;
+  text-align: left; letter-spacing: 0.05em;
+}
+.inno-table td {
+  padding: 12px 16px; font-size: 13px; color: var(--text-mid);
+  border-bottom: 1px solid var(--gray-line); vertical-align: middle;
+}
+.inno-table tr:last-child td { border-bottom: none; }
+.inno-table tr:hover td { background: var(--sky); }
+.badge {
+  display: inline-block; padding: 3px 9px; border-radius: 20px;
+  font-size: 11px; font-weight: 700;
+  background: var(--sky); color: var(--accent);
+}
+
+/* 수요조사 CTA */
+.survey-cta {
+  margin-top: 28px;
+  background: linear-gradient(135deg, #0077B6, #00B4D8);
+  border-radius: 14px; padding: 28px 32px;
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 20px;
+}
+.survey-cta h3 { font-size: 18px; font-weight: 900; color: var(--white); margin-bottom: 6px; }
+.survey-cta p  { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.6; }
+.cta-btn {
+  flex-shrink: 0; background: var(--white); color: var(--accent);
+  font-weight: 700; font-size: 13px; padding: 11px 22px;
+  border-radius: 30px; text-decoration: none; white-space: nowrap;
+  transition: all 0.2s; border: none; cursor: pointer;
+  font-family: 'Pretendard', sans-serif;
+}
+.cta-btn:hover { background: var(--sky); transform: scale(1.03); }
+
+/* 문의 */
+.contact-bar {
+  margin-top: 28px; font-size: 12px; color: var(--text-soft);
+  display: flex; align-items: center; gap: 6px;
+}
+.contact-bar a { color: var(--accent); text-decoration: none; }
+.contact-bar a:hover { text-decoration: underline; }
+
+/* ── FOOTER ── */
+footer {
+  background: linear-gradient(135deg, #0d1b2a 0%, #1428A0 100%);
+  padding: 60px 24px;
+  text-align: center; position: relative; overflow: hidden;
+}
+footer::before {
+  content: ''; position: absolute;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: rgba(0,180,216,0.05);
+  top: -150px; left: -80px;
+}
+.footer-inner { position: relative; max-width: 600px; margin: 0 auto; }
+.footer-msg {
+  font-size: clamp(20px, 3.5vw, 32px);
+  font-weight: 900; color: var(--white);
+  line-height: 1.3; margin-bottom: 20px;
+}
+.footer-msg em { font-style: normal; color: var(--cyan-light); }
+.footer-divider {
+  width: 36px; height: 1px;
+  background: rgba(144,224,239,0.3);
+  margin: 0 auto 20px;
+}
+.footer-email {
+  display: block; font-size: 14px;
+  color: rgba(144,224,239,0.75); text-decoration: none;
+  margin-bottom: 28px; transition: opacity 0.2s;
+}
+.footer-email:hover { opacity: 1; color: var(--cyan-light); }
+
+/* 발행호 이동 */
+.footer-nav {
+  display: flex; align-items: center;
+  justify-content: center; gap: 12px; margin-top: 8px;
+}
+.footer-nav-btn {
+  display: flex; align-items: center; gap: 6px;
+  color: rgba(255,255,255,0.4); text-decoration: none;
+  font-size: 12px; font-weight: 500;
+  padding: 6px 14px; border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.2s;
+}
+.footer-nav-btn:hover {
+  color: var(--cyan-light);
+  border-color: rgba(144,224,239,0.3);
+}
+.footer-nav-sep { color: rgba(255,255,255,0.15); font-size: 12px; }
+.footer-copy {
+  margin-top: 24px; font-size: 11px;
+  color: rgba(255,255,255,0.2); letter-spacing: 0.08em;
+}
+
+/* ── 반응형 ── */
+@media (max-width: 700px) {
+  .two-col { grid-template-columns: 1fr; }
+  .full-col { grid-column: 1; }
+  .sub-imgs-3 { grid-template-columns: 1fr 1fr; }
+  .inno-summary { grid-template-columns: repeat(2,1fr); }
+  .stat-row { grid-template-columns: repeat(2,1fr); }
+  .survey-cta { flex-direction: column; text-align: center; }
+  .gnav-sections { gap: 2px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── GLOBAL NAV ── -->
+<nav class="global-nav">
+  <div class="gnav-inner">
+    <a class="gnav-home" href="index.html">
+      <div>
+        <div class="gnav-home-badge">M<span>@</span>G</div>
+        <div class="gnav-home-label">아카이브</div>
+      </div>
+    </a>
+    <ul class="gnav-sections">
+      <li><a href="#hero"><span class="gnav-num">00</span>표지</a></li>
+      <li><a href="#s01"><span class="gnav-num">01</span>상생협력 세미나</a></li>
+      <li><a href="#s02"><span class="gnav-num">02</span>구매상담회</a></li>
+      <li><a href="#s03"><span class="gnav-num">03</span>혁신활동</a></li>
+    </ul>
+    <div class="gnav-issue-nav">
+      <a class="issue-nav-btn" href="2026-q1.html">← 이전호</a>
+      <a class="issue-nav-btn" href="2026-q3.html">다음호 →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="hero">
+  <div class="bubbles" id="bubbles"></div>
+  <div class="hero-bg-circle" style="width:600px;height:600px;top:-200px;right:-150px;"></div>
+  <div class="hero-bg-circle" style="width:300px;height:300px;bottom:-80px;left:-60px;"></div>
+
+  <p class="hero-eyebrow">Samsung SDI Partners Association</p>
+  <p class="hero-vol">Vol.2026-02</p>
+  <h1 class="hero-title">M<span class="at">@</span>GAZINE</h1>
+  <p class="hero-sub">삼성SDI 상생협력 소식지 &nbsp;·&nbsp; <strong style="color:var(--cyan-light)">26년 두번째</strong></p>
+
+  <div class="hero-toc">
+    <a class="toc-item" href="#s01">
+      <span class="toc-num">01</span>
+      <span class="toc-text">상생협력 세미나</span>
+    </a>
+    <a class="toc-item" href="#s02">
+      <span class="toc-num">02</span>
+      <span class="toc-text">구매상담회 참석</span>
+    </a>
+    <a class="toc-item" href="#s03">
+      <span class="toc-num">03</span>
+      <span class="toc-text">'26년 상반기 혁신활동 결과 및 하반기 수요조사</span>
+    </a>
+  </div>
+</section>
+
+<!-- ── SECTION 01 : 상생협력 세미나 ── -->
+<section id="s01">
+  <div class="section-inner">
+    <span class="section-tag">Section 01</span>
+    <h2 class="section-title">상생협력 세미나</h2>
+    <p class="section-date">'26. 00. 00(요일) @ 장소명</p>
+
+    <div class="two-col">
+
+      <!-- 메인 이미지 -->
+      <div class="img-box main-img">
+        <!-- 실제 사진: <img src="../assets/2026q2/seminar-main.jpg" alt="상생협력 세미나"> -->
+        <div class="img-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="M21 15l-5-5L5 21"/>
+          </svg>
+          <span>세미나 대표 사진<br>(4:3 권장)</span>
+        </div>
+      </div>
+
+      <!-- 행사 정보 -->
+      <div class="info-stack">
+        <div class="info-block">
+          <div class="info-block-title">1부 순서</div>
+          <div class="info-block-body">
+            여기에 <strong>1부 행사 내용</strong>을 입력해 주세요.<br>
+            예) 개회식, 우수사례 발표, 시상식 등
+          </div>
+        </div>
+        <div class="info-block">
+          <div class="info-block-title">2부 순서</div>
+          <div class="info-block-body">
+            여기에 <strong>2부 행사 내용</strong>을 입력해 주세요.<br>
+            예) 경영현황 공유, QnA, 오찬 간담회 등
+          </div>
+        </div>
+      </div>
+
+      <!-- 핵심 메시지 -->
+      <div class="highlight-banner full-col">
+        <p>
+          삼성SDI와 파트너사가 함께하는<br>
+          <em>"함께 만드는 상생의 가치"</em><br>
+          — 여기에 행사의 핵심 메시지를 입력해 주세요.
+        </p>
+      </div>
+
+      <!-- 서브 이미지 3장 -->
+      <div class="sub-imgs-3 full-col">
+        <div class="img-box sub-img">
+          <!-- <img src="../assets/2026q2/seminar-1.jpg" alt=""> -->
+          <div class="img-placeholder"><span>사진 ①</span></div>
+        </div>
+        <div class="img-box sub-img">
+          <!-- <img src="../assets/2026q2/seminar-2.jpg" alt=""> -->
+          <div class="img-placeholder"><span>사진 ②</span></div>
+        </div>
+        <div class="img-box sub-img">
+          <!-- <img src="../assets/2026q2/seminar-3.jpg" alt=""> -->
+          <div class="img-placeholder"><span>사진 ③</span></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="contact-bar">
+      📧 문의 : 담당자 이름 프로 (<a href="mailto:email@samsung.com">email@samsung.com</a>)
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 02 : 구매상담회 ── -->
+<section id="s02">
+  <div class="section-inner">
+    <span class="section-tag">Section 02</span>
+    <h2 class="section-title">구매상담회 참석</h2>
+    <p class="section-date">'26. 00. 00(요일) @ 장소명</p>
+
+    <div class="two-col">
+
+      <div class="info-stack">
+        <p style="font-size:14px;line-height:1.85;color:var(--text-mid)">
+          여기에 구매상담회 행사 설명을 입력해 주세요.<br>
+          어떤 행사였는지, 참석 규모, 주요 성과 등을<br>
+          자유롭게 작성하시면 됩니다.
+        </p>
+
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-num">00<span class="stat-unit">개사</span></div>
+            <div class="stat-label">참가 파트너사</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">00<span class="stat-unit">건</span></div>
+            <div class="stat-label">상담 건수</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">00<span class="stat-unit">억</span></div>
+            <div class="stat-label">예상 계약액</div>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <div class="info-block-title">주요 내용</div>
+          <div class="info-block-body">
+            • 주요 내용 1<br>
+            • 주요 내용 2<br>
+            • 주요 내용 3
+          </div>
+        </div>
+      </div>
+
+      <div class="img-box tall-img">
+        <!-- <img src="../assets/2026q2/buymeet.jpg" alt="구매상담회"> -->
+        <div class="img-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="M21 15l-5-5L5 21"/>
+          </svg>
+          <span>구매상담회 사진<br>(3:4 권장)</span>
+        </div>
+      </div>
+
+    </div>
+    <div class="contact-bar">
+      📧 문의 : 담당자 이름 프로 (<a href="mailto:email@samsung.com">email@samsung.com</a>)
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 03 : 혁신활동 ── -->
+<section id="s03">
+  <div class="section-inner">
+    <span class="section-tag">Section 03</span>
+    <h2 class="section-title">'26년 혁신활동 결과 및 하반기 수요조사</h2>
+    <p class="section-date">상생협력사무국 혁신지원단 운영 현황</p>
+
+    <div class="inno-summary">
+      <div class="inno-card">
+        <div class="inno-card-icon">🏭</div>
+        <div class="inno-card-num">9</div>
+        <div class="inno-card-label">상반기 참여사</div>
+      </div>
+      <div class="inno-card">
+        <div class="inno-card-icon">🔧</div>
+        <div class="inno-card-num">5</div>
+        <div class="inno-card-label">지원 분야</div>
+      </div>
+      <div class="inno-card">
+        <div class="inno-card-icon">👥</div>
+        <div class="inno-card-num">7</div>
+        <div class="inno-card-label">전담 컨설턴트</div>
+      </div>
+      <div class="inno-card">
+        <div class="inno-card-icon">✅</div>
+        <div class="inno-card-num">무상</div>
+        <div class="inno-card-label">지원 조건</div>
+      </div>
+    </div>
+
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab(this,'tab-result')">상반기 활동 결과</button>
+      <button class="tab-btn" onclick="switchTab(this,'tab-survey')">하반기 수요조사 안내</button>
+    </div>
+
+    <div id="tab-result" class="tab-content active">
+      <table class="inno-table">
+        <thead>
+          <tr>
+            <th>분야</th>
+            <th>파트너사</th>
+            <th>주요 KPI / 성과</th>
+            <th>컨설턴트</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- ↓ 실제 데이터로 교체 -->
+          <tr>
+            <td><span class="badge">설비/금형</span></td>
+            <td>일신하이텍코리아</td>
+            <td>금형 관리 시스템 구축 완료</td>
+            <td>이민열</td>
+          </tr>
+          <tr>
+            <td><span class="badge">설비/금형</span></td>
+            <td>동방디지텍</td>
+            <td>금형 관리 시스템 구축 완료</td>
+            <td>이민열</td>
+          </tr>
+          <tr>
+            <td><span class="badge">설비/금형</span></td>
+            <td>에스티첨단정밀</td>
+            <td>설비 관리 시스템 구축 완료</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><span class="badge">지적재산권</span></td>
+            <td>테이팩스</td>
+            <td>특허분석 및 IP전략수립 완료</td>
+            <td>허태원</td>
+          </tr>
+          <tr>
+            <td><span class="badge">홍보</span></td>
+            <td>코스모신소재</td>
+            <td>중장기 커뮤니케이션 로드맵 수립</td>
+            <td>최재성</td>
+          </tr>
+          <tr>
+            <td><span class="badge">홍보</span></td>
+            <td>삼진LND</td>
+            <td>커뮤니케이션 키워드 정립</td>
+            <td>최재성</td>
+          </tr>
+          <tr>
+            <td><span class="badge">프로세스</span></td>
+            <td>듀크린</td>
+            <td>전사 업무 표준 Work Flow 제작</td>
+            <td>조성민</td>
+          </tr>
+          <tr>
+            <td><span class="badge">품질</span></td>
+            <td>재원산업</td>
+            <td>New Design FMEA 정립</td>
+            <td>유수민</td>
+          </tr>
+          <tr>
+            <td><span class="badge">품질</span></td>
+            <td>와이지텍</td>
+            <td>사출공정 불량 저감, 공정 불합리 제거</td>
+            <td>이효찬</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="tab-survey" class="tab-content">
+      <div class="info-block">
+        <div class="info-block-title">하반기 혁신활동 수요조사 안내</div>
+        <div class="info-block-body">
+          '26년 하반기 혁신활동 참여를 희망하시는 파트너사는<br>
+          아래 문의처로 연락 주시면 안내드리겠습니다.<br><br>
+          <strong>접수 기간 :</strong> '26. 00. 00 ~ '26. 00. 00<br>
+          <strong>지원 분야 :</strong> 설비/금형, 품질, 홍보, 지적재산권, 프로세스 등<br>
+          <strong>지원 조건 :</strong> SDI 전문가 파견 <strong style="color:var(--cyan)">무상 지원</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="survey-cta">
+      <div>
+        <h3>하반기 혁신활동 참여를 원하신다면?</h3>
+        <p>SDI 베테랑 전문가가 직접 방문하여 무상으로 지원해 드립니다.<br>언제든지 문의하여 주시기 바랍니다.</p>
+      </div>
+      <button class="cta-btn" onclick="location.href='mailto:jw.kwon@samsung.com'">수요조사 문의하기 →</button>
+    </div>
+
+    <div class="contact-bar">
+      📧 문의 : 권재욱 프로 (<a href="mailto:jw.kwon@samsung.com">jw.kwon@samsung.com</a>)
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-msg">
+      함께 성장하는<br>
+      <em>'26년 하반기</em>를 응원합니다.
+    </p>
+    <div class="footer-divider"></div>
+    <a class="footer-email" href="mailto:partnerteam@samsung.com">✉ partnerteam@samsung.com</a>
+    <div class="footer-nav">
+      <a class="footer-nav-btn" href="2026-q1.html">← 이전호 (26년 첫번째)</a>
+      <span class="footer-nav-sep">|</span>
+      <a class="footer-nav-btn" href="index.html">📚 전체 목록</a>
+      <span class="footer-nav-sep">|</span>
+      <a class="footer-nav-btn" href="2026-q3.html">다음호 (26년 세번째) →</a>
+    </div>
+    <p class="footer-copy">SAMSUNG SDI Co., Ltd. · 상생협력사무국 · © 2026</p>
+  </div>
+</footer>
+
+<script>
+// 탭
+function switchTab(btn, id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+
+// 스크롤 시 nav 활성화
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.gnav-sections a');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const link = document.querySelector(`.gnav-sections a[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach(s => io.observe(s));
+
+// 물방울 배경
+(function() {
+  const c = document.getElementById('bubbles');
+  for (let i = 0; i < 16; i++) {
+    const b = document.createElement('div');
+    b.className = 'bubble';
+    const s = Math.random() * 70 + 15;
+    b.style.cssText = `width:${s}px;height:${s}px;left:${Math.random()*100}%;animation-duration:${Math.random()*14+10}s;animation-delay:${Math.random()*10}s;`;
+    c.appendChild(b);
+  }
+})();
+</script>
+</body>
+</html>
