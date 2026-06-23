@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>삼성SDI 상생협력 소식지 M@GAZINE</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+:root {
+  --navy: #1428A0;
+  --cyan: #00B4D8;
+  --cyan-light: #90E0EF;
+  --sky: #CAF0F8;
+  --white: #ffffff;
+  --gray-bg: #f4f8fb;
+  --gray-line: #e2eef4;
+  --text-dark: #0d1b2a;
+  --text-mid: #3a5068;
+  --text-soft: #6b8fa8;
+  --accent: #0077B6;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--gray-bg);
+  color: var(--text-dark);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+header {
+  background: linear-gradient(135deg, #0d1b2a 0%, #1428A0 60%, #0077B6 100%);
+  padding: 0 40px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+}
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+}
+.logo-badge {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(144,224,239,0.3);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 17px;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.02em;
+}
+.logo-badge span { color: var(--cyan); }
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+.logo-text .main { font-size: 13px; font-weight: 700; color: var(--white); }
+.logo-text .sub  { font-size: 11px; font-weight: 300; color: rgba(144,224,239,0.7); letter-spacing: 0.05em; }
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.header-tag {
+  background: rgba(0,180,216,0.2);
+  border: 1px solid rgba(144,224,239,0.3);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--cyan-light);
+  letter-spacing: 0.08em;
+}
+
+/* ── HERO BAND ── */
+.hero-band {
+  background: linear-gradient(135deg, #1428A0 0%, #0077B6 50%, #00B4D8 100%);
+  padding: 56px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-band::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  top: -200px; right: -100px;
+}
+.hero-band::after {
+  content: '';
+  position: absolute;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.08);
+  bottom: -150px; left: -80px;
+}
+.hero-band-inner { position: relative; }
+.hero-band h1 {
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 900;
+  color: var(--white);
+  margin-bottom: 10px;
+  line-height: 1.15;
+}
+.hero-band h1 em { font-style: normal; color: var(--cyan-light); }
+.hero-band p {
+  font-size: 14px;
+  color: rgba(202,240,248,0.8);
+  font-weight: 300;
+  letter-spacing: 0.08em;
+}
+
+/* 통계 배지 */
+.hero-stats {
+  display: inline-flex;
+  gap: 32px;
+  margin-top: 32px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(144,224,239,0.2);
+  border-radius: 16px;
+  padding: 20px 40px;
+}
+.hero-stat-num {
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1;
+}
+.hero-stat-label {
+  font-size: 11px;
+  color: rgba(202,240,248,0.7);
+  margin-top: 4px;
+  letter-spacing: 0.06em;
+}
+
+/* ── MAIN CONTENT ── */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+/* 연도 섹션 */
+.year-section { margin-bottom: 56px; }
+
+.year-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.year-label {
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--navy);
+  line-height: 1;
+}
+.year-count {
+  background: var(--navy);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.08em;
+}
+.year-divider {
+  flex: 1;
+  height: 1px;
+  background: var(--gray-line);
+}
+
+/* 분기 그리드 */
+.quarter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* 소식지 카드 */
+.issue-card {
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border: 1px solid transparent;
+  position: relative;
+}
+.issue-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(20,40,160,0.15);
+  border-color: var(--cyan-light);
+}
+.issue-card.latest::after {
+  content: 'NEW';
+  position: absolute;
+  top: 12px; right: 12px;
+  background: var(--cyan);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 900;
+  padding: 3px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.1em;
+}
+
+.card-thumb {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+/* 분기별 썸네일 색상 */
+.card-thumb.q1 { background: linear-gradient(135deg, #0d3b6e, #1428A0); }
+.card-thumb.q2 { background: linear-gradient(135deg, #0077B6, #00B4D8); }
+.card-thumb.q3 { background: linear-gradient(135deg, #023e8a, #0096c7); }
+.card-thumb.q4 { background: linear-gradient(135deg, #03045e, #0077B6); }
+
+.card-thumb-label {
+  font-size: 36px;
+  font-weight: 900;
+  color: rgba(255,255,255,0.15);
+  letter-spacing: -0.03em;
+  user-select: none;
+  position: absolute;
+  bottom: -4px; right: 8px;
+}
+.card-quarter-badge {
+  position: absolute;
+  top: 12px; left: 12px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.08em;
+}
+.card-icon {
+  font-size: 32px;
+  position: relative;
+}
+
+.card-body {
+  padding: 16px 18px 18px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.card-issue-num {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.4;
+}
+.card-topics {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 4px;
+}
+.card-topic {
+  font-size: 11px;
+  color: var(--text-soft);
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  line-height: 1.4;
+}
+.card-topic::before {
+  content: '·';
+  color: var(--cyan);
+  font-weight: 900;
+  flex-shrink: 0;
+}
+.card-footer {
+  padding: 10px 18px;
+  border-top: 1px solid var(--gray-line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-date {
+  font-size: 11px;
+  color: var(--text-soft);
+}
+.card-arrow {
+  font-size: 14px;
+  color: var(--cyan);
+  font-weight: 700;
+  transition: transform 0.2s;
+}
+.issue-card:hover .card-arrow { transform: translateX(4px); }
+
+/* 빈 카드 (예정) */
+.issue-card.empty {
+  border: 2px dashed var(--gray-line);
+  background: transparent;
+  box-shadow: none;
+  pointer-events: none;
+  opacity: 0.5;
+}
+.issue-card.empty:hover { transform: none; box-shadow: none; }
+.empty-body {
+  padding: 28px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+}
+.empty-qtr {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--gray-line);
+}
+.empty-label {
+  font-size: 11px;
+  color: var(--text-soft);
+  letter-spacing: 0.08em;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: linear-gradient(135deg, #0d1b2a, #1428A0);
+  padding: 40px 24px;
+  text-align: center;
+}
+.footer-inner { max-width: 600px; margin: 0 auto; }
+.footer-logo {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.footer-logo span { color: var(--cyan); }
+.footer-email {
+  font-size: 13px;
+  color: rgba(144,224,239,0.7);
+  text-decoration: none;
+  display: block;
+  margin-bottom: 16px;
+}
+.footer-copy {
+  font-size: 11px;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 0.08em;
+}
+
+/* ── 반응형 ── */
+@media (max-width: 900px) {
+  .quarter-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-stats { gap: 20px; padding: 16px 28px; }
+}
+@media (max-width: 560px) {
+  header { padding: 0 16px; }
+  .hero-band { padding: 40px 20px; }
+  .hero-stats { flex-direction: column; gap: 12px; }
+  main { padding: 32px 16px 60px; }
+  .quarter-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .logo-text { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a class="logo" href="index.html">
+      <div class="logo-badge">M<span>@</span>GAZINE</div>
+      <div class="logo-text">
+        <span class="main">삼성SDI 상생협력 소식지</span>
+        <span class="sub">Samsung SDI Partners Association</span>
+      </div>
+    </a>
+    <div class="header-right">
+      <span class="header-tag">SSP 아카이브</span>
+    </div>
+  </div>
+</header>
+
+<!-- HERO BAND -->
+<div class="hero-band">
+  <div class="hero-band-inner">
+    <h1>상생협력 소식지<br><em>M@GAZINE</em> 아카이브</h1>
+    <p>삼성SDI 파트너사와 함께한 모든 이야기를 담았습니다</p>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num" id="total-issues">—</div>
+        <div class="hero-stat-label">발행 호수</div>
+      </div>
+      <div>
+        <div class="hero-stat-num" id="total-years">—</div>
+        <div class="hero-stat-label">운영 연도</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">50</div>
+        <div class="hero-stat-label">파트너사</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main>
+
+  <!-- ══ 2026년 ══ -->
+  <div class="year-section" data-year="2026">
+    <div class="year-header">
+      <span class="year-label">2026</span>
+      <span class="year-count">4호 예정</span>
+      <div class="year-divider"></div>
+    </div>
+    <div class="quarter-grid">
+
+      <!-- Q1 — 발행 완료 -->
+      <a class="issue-card" href="2026/q1.html">
+        <div class="card-thumb q1">
+          <span class="card-quarter-badge">Q1 · 1분기</span>
+          <span class="card-thumb-label">26</span>
+          <span class="card-icon">🌱</span>
+        </div>
+        <div class="card-body">
+          <div class="card-issue-num">Vol.2026-01 · 26년 첫번째</div>
+          <div class="card-title">12기 SSP 총회 외 3건</div>
+          <div class="card-topics">
+            <span class="card-topic">12기 SSP 총회 스케치</span>
+            <span class="card-topic">'26년 상반기 파트너사 혁신활동 현황</span>
+            <span class="card-topic">'26년 파트너사 교육지원 소개</span>
+            <span class="card-topic">대·중소 상생형 스마트공장 구축사업</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">2026. 03</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- Q2 — 현재 제작 중 (NEW) -->
+      <a class="issue-card latest" href="2026/q2.html">
+        <div class="card-thumb q2">
+          <span class="card-quarter-badge">Q2 · 2분기</span>
+          <span class="card-thumb-label">26</span>
+          <span class="card-icon">☀️</span>
+        </div>
+        <div class="card-body">
+          <div class="card-issue-num">Vol.2026-02 · 26년 두번째</div>
+          <div class="card-title">상생협력 세미나 외 2건</div>
+          <div class="card-topics">
+            <span class="card-topic">상생협력 세미나</span>
+            <span class="card-topic">구매상담회 참석</span>
+            <span class="card-topic">'26년 상반기 혁신활동 결과 및 하반기 수요조사</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">2026. 06</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- Q3 — 예정 -->
+      <div class="issue-card empty">
+        <div class="empty-body">
+          <div class="empty-qtr">Q3</div>
+          <div class="empty-label">3분기 · 발행 예정</div>
+        </div>
+      </div>
+
+      <!-- Q4 — 예정 -->
+      <div class="issue-card empty">
+        <div class="empty-body">
+          <div class="empty-qtr">Q4</div>
+          <div class="empty-label">4분기 · 발행 예정</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ 2025년 ══ (과거 호 예시 — 실제 파일/내용으로 교체) -->
+  <div class="year-section" data-year="2025">
+    <div class="year-header">
+      <span class="year-label">2025</span>
+      <span class="year-count">4호</span>
+      <div class="year-divider"></div>
+    </div>
+    <div class="quarter-grid">
+
+      <a class="issue-card" href="2025/q1.html">
+        <div class="card-thumb q1">
+          <span class="card-quarter-badge">Q1 · 1분기</span>
+          <span class="card-thumb-label">25</span>
+          <span class="card-icon">🌱</span>
+        </div>
+        <div class="card-body">
+          <div class="card-issue-num">Vol.2025-01 · 25년 첫번째</div>
+          <div class="card-title">소제목을 여기에 입력</div>
+          <div class="card-topics">
+            <span class="card-topic">주요 콘텐츠 1</span>
+            <span class="card-topic">주요 콘텐츠 2</span>
+            <span class="card-topic">주요 콘텐츠 3</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">2025. 03</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <a class="issue-card" href="2025/q2.html">
+        <div class="card-thumb q2">
+          <span class="card-quarter-badge">Q2 · 2분기</span>
+          <span class="card-thumb-label">25</span>
+          <span class="card-icon">☀️</span>
+        </div>
+        <div class="card-body">
+          <div class="card-issue-num">Vol.2025-02 · 25년 두번째</div>
+          <div class="card-title">소제목을 여기에 입력</div>
+          <div class="card-topics">
+            <span class="card-topic">주요 콘텐츠 1</span>
+            <span class="card-topic">주요 콘텐츠 2</span>
+            <span class="card-topic">주요 콘텐츠 3</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">2025. 06</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <a class="issue-card" href="2025/q3.html">
+        <div class="card-thumb q3">
+          <span class="card-quarter-badge">Q3 · 3분기</span>
+          <span class="card-thumb-label">25</span>
+          <span class="card-icon">🍃</span>
+        </div>
+        <div class="card-body">
+          <div class="card-issue-num">Vol.2025-03 · 25년 세번째</div>
+          <div class="card-title">소제목을 여기에 입력</div>
+          <div class="card-topics">
+            <span class="card-topic">주요 콘텐츠 1</span>
+            <span class="card-topic">주요 콘텐츠 2</span>
+            <span class="card-topic">주요 콘텐츠 3</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">2025. 09</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <a class="issue-card" href="2025/q4.html">
+        <div class="card-thumb q4">
+          <span class="card-quarter-badge">Q4 · 4분기</span>
+          <span class="card-thumb-label">25</span>
+          <span class="card-icon">❄️</span>
+        </div>
+        <div class="card-body">
+          <div class="card-issue-num">Vol.2025-04 · 25년 네번째</div>
+          <div class="card-title">소제목을 여기에 입력</div>
+          <div class="card-topics">
+            <span class="card-topic">주요 콘텐츠 1</span>
+            <span class="card-topic">주요 콘텐츠 2</span>
+            <span class="card-topic">주요 콘텐츠 3</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">2025. 12</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+  <!-- 새 연도 추가 시 위 year-section 블록을 복사해서 붙여넣기 -->
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">SAMSUNG SDI <span>상생협력사무국</span></div>
+    <a class="footer-email" href="mailto:partnerteam@samsung.com">partnerteam@samsung.com</a>
+    <div class="footer-copy">© SAMSUNG SDI Co., Ltd. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+// 발행 호수 / 연도 수 자동 집계
+const cards = document.querySelectorAll('.issue-card:not(.empty)');
+const years = new Set([...document.querySelectorAll('.year-section')].map(s => s.dataset.year));
+document.getElementById('total-issues').textContent = cards.length;
+document.getElementById('total-years').textContent  = years.size;
+</script>
+</body>
+</html>
